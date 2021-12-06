@@ -54,8 +54,8 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
 } */
 
 async function trabalhandoOb() {
-  const chamaRq = await fetchProducts();
-  chamaRq.forEach((element) => {
+  const chamaRq = await fetchProducts('computador');
+  chamaRq.results.forEach((element) => {
     const d = document.querySelector('.items');
     d.appendChild(createProductItemElement(element));
   });
