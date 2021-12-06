@@ -15,7 +15,7 @@ function createCustomElement(element, className, innerText) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.remove();
 }
 
 // recebe um objeto, cria um elemento li, adicioan uma classe e um texto com algumas coisas do objeto 
