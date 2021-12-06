@@ -1,3 +1,4 @@
+// cria a imagem, adiciona uma classe.
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -5,6 +6,7 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+// cria um elemento, adiciona uma classe, e um texto
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -12,7 +14,8 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
+// recebe um objeto, cria uma section e adiciona como filhos dessa section o restultado da função de cima
+function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -20,10 +23,11 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-// vamo com tudo
+
   return section;
 }
 
+// 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
@@ -32,6 +36,7 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
 }
 
+// recebe um objeto, cria um elemento li, adicioan uma classe e um texto com algumas coisas do objeto 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -40,4 +45,14 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-window.onload = () => { };
+async function trabalhandoOb() {
+  const chamaRq = await fetchProducts();
+  chamaRq.forEach((element) => {
+    const d = document.querySelector('.items');
+    d.appendChild(createProductItemElement(element));
+  });
+}
+
+window.onload = async () => {
+  trabalhandoOb();
+};
