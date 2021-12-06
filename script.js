@@ -14,6 +14,19 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+function cartItemClickListener(event) {
+  // coloque seu código aqui
+}
+
+// recebe um objeto, cria um elemento li, adicioan uma classe e um texto com algumas coisas do objeto 
+function createCartItemElement({ id: sku, title: name, price: salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
 // recebe um objeto, cria uma section e adiciona como filhos dessa section o restultado da função de cima
 function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
@@ -22,7 +35,13 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  const button = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
+  section.appendChild(button);
+  button.addEventListener('click', async () => {
+    const j = await fetchItem(sku);
+    const k = document.querySelector('.cart__items');
+    k.appendChild(createCartItemElement(j));
+  });
 
   return section;
 }
@@ -30,19 +49,6 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
 // 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
-
-// recebe um objeto, cria um elemento li, adicioan uma classe e um texto com algumas coisas do objeto 
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
 }
 
 async function trabalhandoOb() {
