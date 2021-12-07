@@ -20,6 +20,13 @@ function cartItemClickListener(event) {
   saveCartItems(k.innerHTML);
 }
 
+function clearCart() {
+  const btn = document.querySelector('.empty-cart');
+  btn.addEventListener('click', () => {
+  saveCartItems(k.innerHTML = '');
+  });
+}
+clearCart();
 // recebe um objeto, cria um elemento li, adicioan uma classe e um texto com algumas coisas do objeto 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
